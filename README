@@ -1,0 +1,11 @@
+Months.jsx creates a new file that will then cycle through creating a layer for
+each month of the year in the MONTH YEAR format. It then cycles through and finds
+the 2nd and 4th Wednesday of the month prints it out in the MONTH DAY, YEAR format.
+It's all customizable, so let me know if it doesn't make sense.
+
+Header-Text-Replacement.jsx opens a file that you specify in the script, searches
+for a specific layer, then replaces the content of that layer. It does exactly
+what Months.jsx does, but opens a file, then exports each date for web (PNG24).
+
+Thanks to Sonny Scroggin (http://github.com/scrogson, http://twitter.com/scrogson)
+for helping out on Months.jsx.
