@@ -1,4 +1,22 @@
-﻿//Aux Functions
+﻿//Doc Attributes
+preferences.rulerUnits = Units.PIXELS;
+var width = 1280;
+var height = 800;
+var resolution = 72;
+var docName = "Email Dates";
+
+//Color Scheme
+normalColor = new SolidColor();
+    normalColor.rgb.hexValue = "6b6d67";
+ 
+//Defining Variables
+months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+year = 2012;
+textHeight = 19;
+textWidth = 200;
+
+//Date Function
+//Modified code now found at http://jsfiddle.net/G4uDj/16/
 var getDateInterval = function(index, weekday, month, year) {
     // index what occurence of the weekday we look for (1 and upwards)
     // weekday 0-6 (= Sunday - Monday)
@@ -17,28 +35,10 @@ var getDateInterval = function(index, weekday, month, year) {
     }
 };
 
-
-//Doc Attributes
-preferences.rulerUnits = Units.PIXELS;
-var width = 1280;
-var height = 800;
-var resolution = 72;
-var docName = "Email Dates";
-
-//Color Scheme
-normalColor = new SolidColor();
-    normalColor.rgb.hexValue = "6b6d67";
- 
-//Defining Variables
-months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
-year = 2012;
-textHeight = 18;
-textWidth = 200;
-
 //Create New document
 var doc = app.documents.add(width, height, resolution, docName, NewDocumentMode.RGB);
 
-//Create the Dates Month Year
+//Creates the dates in the MONTH YEAR format
 for(i=0;i<12;i++){
     monthName = doc.artLayers.add();
     monthName.kind = LayerKind.TEXT;
@@ -52,10 +52,12 @@ for(i=0;i<12;i++){
     monthName.textItem.height = textHeight;
     monthName.textItem.width = textWidth;
     monthName.textItem.contents = months[i]+' '+year;
-    monthName.textItem.position = new Array(0, (18*i));
+    monthName.textItem.position = new Array(0, (textHeight*i));
 }
+
+//Creates the dates in the MONTH DAY, YEAR format
 var pos = 0;
-//Create the Dates Month Day, Year
+textHeight = textHeight + 2; //Adds space for the comma
 for(curr=0;curr<12;curr++){
     for(i=0;i<2;i++){
         monthName = doc.artLayers.add();
@@ -68,8 +70,8 @@ for(curr=0;curr<12;curr++){
         monthName.textItem.capitalization = TextCase.ALLCAPS;
         monthName.textItem.height = textHeight;
         monthName.textItem.width = textWidth;
-        monthName.textItem.position = new Array(180, pos);
-        pos+= 18; 
+        monthName.textItem.position = new Array(150, pos);
+        pos+= textHeight; 
         x = i == 0 ? 2 : 4;
         date = getDateInterval(x, 3, curr, year);
         date = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
@@ -77,4 +79,3 @@ for(curr=0;curr<12;curr++){
     }
 
 }
-
