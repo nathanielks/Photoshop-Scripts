@@ -20,7 +20,8 @@ textWidth = 200;
 var getDateInterval = function(index, weekday, month, year) {
     // index what occurence of the weekday we look for (1 and upwards)
     // weekday 0-6 (= Sunday - Monday)
-    // month 1-12 (= January - December) optional defaults to current month
+    // month 0-11 (= January - December) optional defaults to current month
+    // Having month be 0-11 coincides with the months array defined earlier
     // year (a four digit number) optional defaults to current year
     var day = 1;
 
