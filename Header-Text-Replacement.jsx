@@ -4,7 +4,7 @@ year = 2012;
 layerName = 'INSERT'; //The name of the layer you want to replace the text
 
 // Open the document
-var sampleDocToOpen = File("/path/to/file.psd");
+var sampleDocToOpen = File("/Volumes/HU\ RAID/Active/Updated\ Email\ Header/Header\ Template.psd");
 open(sampleDocToOpen);
 
 //Date Function
@@ -41,20 +41,29 @@ function saveForWeb(saveFile){
 var doc = app.activeDocument;
 
 //Creates the dates in the MONTH YEAR format
-for(i=0;i<12;i++){
+for(curr=0;curr<12;curr++){
     var layer = doc.layers.getByName(layerName);
-    if(layer.kind == LayerKind.TEXT) layer.textItem.contents = months[i]+' '+year;
-    var Name = months[i]+'_'+year; 
+    if(layer.kind == LayerKind.TEXT) layer.textItem.contents = months[curr]+' '+year;
+    var Name = months[curr]+'_'+year; 
     var Path = app.activeDocument.path; 
     var saveFile = File(Path + "/images/" + Name +".png"); 
     if(saveFile.exists) saveFile.remove(); 
     saveForWeb(saveFile); 
     
-    for(j=0;j<2;j++){
-        x = j == 0 ? 2 : 4;
-        date = getDateInterval(x, 3, i, year);
+}
+
+
+for(curr=0;curr<12;curr++){
+    var layer = doc.layers.getByName(layerName);
+    var Path = app.activeDocument.path; 
+    var saveFile = File(Path + "/images/" + Name +".png"); 
+    
+    for(i=0;i<2;i++){
+        var x = ( i === 0 ) ? 2 : 4;
+        var date = getDateInterval(x, 3, curr, year);
         date = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
         if(layer.kind == LayerKind.TEXT) layer.textItem.contents = date;
+        var Name = date;
         Name = Name.split(' ').join('_').replace(',','');
         if(saveFile.exists) saveFile.remove(); 
         saveForWeb(saveFile); 
