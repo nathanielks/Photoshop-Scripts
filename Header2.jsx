@@ -41,23 +41,36 @@ function saveForWeb(saveFile){
 var doc = app.activeDocument;
 
 //Creates the dates in the MONTH YEAR format
-//for(curr=0;curr<12;curr++){
-    //var layer = doc.layers.getByName(layerName);
-    //if(layer.kind == LayerKind.TEXT) layer.textItem.contents = months[curr]+' '+year;
-    //var Name = months[curr]+'_'+year; 
-    //var Path = app.activeDocument.path; 
-    //var saveFile = File(Path + "/images/" + Name +".png"); 
-    //if(saveFile.exists) saveFile.remove(); 
-    //saveForWeb(saveFile); 
+for(curr=0;curr<12;curr++){
+    var layer = doc.layers.getByName(layerName);
+    if(layer.kind == LayerKind.TEXT) layer.textItem.contents = months[curr]+' '+year;
+    var Name = months[curr]+'_'+year; 
+    var Path = app.activeDocument.path; 
+    var saveFile = File(Path + "/images/" + Name +".png"); 
+    if(saveFile.exists) saveFile.remove(); 
+    saveForWeb(saveFile); 
     
-//}
+}
 
 
 for(curr=0;curr<12;curr++){
     for(i=0;i<2;i++){
-        var layer = doc.layers.getByName(layerName);
-        var Path = app.activeDocument.path; 
-        var saveFile = File(Path + "/images/" + Name +".png"); 
+        x = i == 0 ? 2 : 4;
+        date = getDateInterval(x, 3, curr, year);
+        date = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+        Name = date;
+        Name = Name.split(' ').join('_').replace(',','');
+        if(saveFile.exists) saveFile.remove(); 
+        saveForWeb(saveFile); 
+    }
+
+}
+for(curr=0;curr<12;curr++){
+    var layer = doc.layers.getByName(layerName);
+    var Path = app.activeDocument.path; 
+    var saveFile = File(Path + "/images/" + Name +".png"); 
+    
+    for(i=0;i<2;i++){
         var x = ( i === 0 ) ? 2 : 4;
         var date = getDateInterval(x, 3, curr, year);
         date = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
