@@ -44,9 +44,9 @@ var doc = app.activeDocument;
 //for(curr=0;curr<12;curr++){
     //var layer = doc.layers.getByName(layerName);
     //if(layer.kind == LayerKind.TEXT) layer.textItem.contents = months[curr]+' '+year;
-    //var Name = months[curr]+'_'+year; 
-    //var Path = app.activeDocument.path; 
-    //var saveFile = File(Path + "/images/" + Name +".png"); 
+    //var itemName = months[curr]+'_'+year; 
+    //var filePath = app.activeDocument.path; 
+    //var saveFile = File(filePath + "/images/" + itemName +".png"); 
     //if(saveFile.exists) saveFile.remove(); 
     //saveForWeb(saveFile); 
     
@@ -56,14 +56,14 @@ var doc = app.activeDocument;
 for(curr=0;curr<12;curr++){
     for(i=0;i<2;i++){
         var layer = doc.layers.getByName(layerName);
-        var Path = app.activeDocument.path; 
-        var saveFile = File(Path + "/images/" + Name +".png"); 
+        var filePath = app.activeDocument.path; 
         var x = ( i === 0 ) ? 2 : 4;
         var date = getDateInterval(x, 3, curr, year);
         date = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
         if(layer.kind == LayerKind.TEXT) layer.textItem.contents = date;
-        var Name = date;
-        Name = Name.split(' ').join('_').replace(',','');
+        var itemName = date;
+        itemName = itemName.split(' ').join('_').replace(',','').toLowerCase();
+        var saveFile = File(filePath + "/images/" + itemName +".png"); 
         if(saveFile.exists) saveFile.remove(); 
         saveForWeb(saveFile); 
     }
